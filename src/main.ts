@@ -70,6 +70,20 @@ async function FetchAllActresses(): Promise<Actress[]>{
   }
 }
 
+async function getActresses(ids: number[]): Promise<(Actress | null)[]>{
+  try{
+    const primises = ids.map(id => fetchActressData(id));
+    return await Promise.all(primises);    
+  }
+  catch(error){
+    if(error instanceof Error){
+      console.error("Error fetching actress data:", error);
+    }else{console.error("Unknown error fetching actress data:", error);}
+    return [];
+  }
+
+}
+
 
 
 
